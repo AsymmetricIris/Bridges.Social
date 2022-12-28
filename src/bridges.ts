@@ -1,6 +1,6 @@
 import { app, ipcMain, BrowserWindow } from 'electron';
-import path = require('path');
-import url = require('url');
+import path = require("path")
+import url = require("url")
 
 export default class Main {
     static mainWindow :Electron.BrowserWindow;
@@ -21,10 +21,11 @@ export default class Main {
         Main.mainWindow = new Main.BrowserWindow({ 
             width: 800, height: 600,
             webPreferences: {
-                // preload: "./preload.js"
-                preload: __dirname + "/preload.js"
+                nodeIntegration: false,
+                contextIsolation: true,
+                preload: path.join(__dirname, "preload.js"),
             },
-            show: false
+            show: false,
         });
         Main.mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, '../index.html'),
@@ -34,6 +35,9 @@ export default class Main {
         
         Main.mainWindow.on("ready-to-show", () => Main.mainWindow.show());
         Main.mainWindow.on("closed", Main.onClose);
+        
+        // Open the DevTools.
+        Main.mainWindow.webContents.openDevTools();
     }
 
     static main(app: Electron.App, browserWindow: typeof BrowserWindow): void {
@@ -41,9 +45,6 @@ export default class Main {
         // Electron.BrowserWindow into this function 
         // so this class has no dependencies. This 
         // makes the code easier to write tests for 
-        let directory = path.resolve("../");
-        console.log("Directory: " + directory);
-
         Main.BrowserWindow = browserWindow;
         Main.application = app;
         Main.application.on('window-all-closed', Main.onWindowAllClosed);

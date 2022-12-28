@@ -2,7 +2,7 @@
   "name": "bridges",
   "version": "1.0.0",
   "description": "A decentralised social media app to provide community multi-channel chat, moderation tools, threads. Also, solid protocol integration for private messages will be a core feature",
-  "main": "./dist/bridges.js",
+  "main": "./dist/app.js",
   "scripts": {
     "build": "tsc",
     "start": "npm run build && electron ./dist/app.js",
@@ -13,7 +13,8 @@
     "url": "git+https://github.com/AsymmetricIris/DustCloud.Social.git"
   },
   "keywords": [
-    "dust"
+    "dust",
+    "bridges"
   ],
   "author": "AsymmetricIris",
   "license": "GPL-3.0-or-later",
@@ -24,5 +25,11 @@
   "devDependencies": {
     "@types/electron": "^1.6.10",
     "typescript": "^4.9.4"
+  },
+  "preload": {
+    "js": "./dist/preload.ts"
+  },
+  "dependencies": {
+    "os": "^0.1.2"
   }
 }

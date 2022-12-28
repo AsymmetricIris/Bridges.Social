@@ -1,6 +1,6 @@
-import { ipcRenderer, contextBridge } from "electron"
-import { cpus } from "os";
+import { app, ipcRenderer, contextBridge } from "electron";
+// import * as os from "os";
 
-contextBridge.exposeInMainWorld("api", {
-    threads: cpus().length
-});
+// contextBridge.exposeInMainWorld("api", {
+//     threads: os.cpus().length
+// });
